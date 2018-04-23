@@ -28,7 +28,7 @@ The notebook `Bengio_Language_Model.ipynb` also contains code for visualising Ca
 - If you completed Hinton's course and kept the materials, place the [Octave](https://www.gnu.org/software/octave/download.html) file `save_for_python.m` and `ConvertHDF5.py` into the relevant directory. Running the former in Octave then executing `python ConvertHDF5.py` at the command prompt will create the csv files and HDF5 databases used here.
 - Should you do the above, you can also substitute the text passage Hinton used with one of your own choosing.
 
-## Word2Vec and pre-training word embedding layers for text classification models
+## Word2Vec and pre-training word embeddings for text classification models
 
 The Word2Vec language models, as proposed by Tomas Mikolov, et al, (2013) at Google in [this paper](https://arxiv.org/abs/1301.3781) and [this one](https://arxiv.org/abs/1310.4546) , can be used to pre-train word embeddings for use in other neural language models.
 
@@ -45,7 +45,7 @@ caffe train -solver w2v_solver.prototxt
 ```
 The Continuous Skip-Gram with Negative Sampling model uses a somewhat different architecture, a Netscope visualisation of which is [here](https://ethereon.github.io/netscope/#/gist/18cf971dc13cc75ed47cb5114bd62130). To train this model, edit the `net:` field in `w2v_solver.prototxt` to state `SkpGrmNeg.prototxt`. The HDF5 database can be downloaded from [here](https://drive.google.com/open?id=1Yhzgf3QEB0qqGdS5fd1QM3roN2gYdbDs).
 
-Pre-trained Automated Essay Scoring (AES) language models, based on the simple Bengio, et al, (2003) architecture, are provided. Use the notebook `aes.ipynb` to explore these; and to visualise the hidden layer activations using t-SNE.
+Three pre-trained Automated Essay Scoring (AES) language models, based on the simple Bengio, et al, (2003) architecture, can be downloaded - [CBoW Embedding](https://drive.google.com/open?id=1hYpt0_Co7Nm5Nj7Q7pt2fxiq4VEiKzvd), [Skip-Gram Embedding](https://drive.google.com/open?id=1Q_6a0lEVuqCH5ngcrhlilXeEoNOrXPup) and [Skip-Gram-Negative-Sampling Embedding](https://drive.google.com/open?id=1mPZuLsXZKypOiis8k2qAMhHViPhzP46T). Use the notebook `aes.ipynb` to explore these; and to visualise the hidden layer activations using t-SNE.
 
 **Notes**
 - The essays used were subject to text pre-processing and cleaning, including but not limited to the removal of stop words, punctuation, numeric characters and capitalisation.
