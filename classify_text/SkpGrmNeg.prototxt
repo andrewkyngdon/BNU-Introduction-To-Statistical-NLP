@@ -1,0 +1,125 @@
+name: "SkipGramNegativeSampling"
+layer {
+  name: "data"
+  type: "HDF5Data"
+  top: "data"
+  top: "label"
+  include {
+    phase: TRAIN
+  }
+  hdf5_data_param {
+    source: "trn_skpgrm_neg_samp_hdf5_list.txt"
+    batch_size: 500
+	shuffle: true
+  }
+}
+layer {
+  name: "slice"
+  type: "Slice"
+  bottom: "data"
+  top: "data_1"
+  top: "data_2"
+  slice_param {
+    axis: 1
+  }
+}
+layer {
+  name: "wrd2vec_1"
+  type: "Embed"
+  bottom: "data_1"
+  top: "wrd2vec_1"
+  embed_param {
+    # bias_term: false
+    input_dim: 701
+    num_output: 100
+	weight_filler {
+		 type: "xavier"
+	}
+	bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "wrd2vec_2"
+  type: "Embed"
+  bottom: "data_2"
+  top: "wrd2vec_2"
+  embed_param {
+    # bias_term: false
+    input_dim: 701
+    num_output: 100
+	weight_filler {
+		 type: "xavier"
+	}
+	bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "elt"
+  type: "Eltwise"
+  bottom: "wrd2vec_1"
+  bottom: "wrd2vec_2"
+  top: "wrd2vec"
+  eltwise_param {
+  operation: PROD
+	}
+}
+layer {
+  name: "red"
+  type: "Reduction"
+  bottom: "wrd2vec"
+  top: "dot_prod"
+  reduction_param {
+    axis: 1
+    operation: SUM
+  }
+}
+layer {
+    name: "reshape"
+    type: "Reshape"
+    bottom: "dot_prod"
+    top: "rs_dot_prod"
+    reshape_param {
+      shape {
+        dim: 500
+        dim: 1
+      }
+    }
+  }
+layer {
+  name: "predict"
+  type: "InnerProduct"
+  bottom: "rs_dot_prod"
+  top: "predict"
+  inner_product_param {
+    num_output: 2
+    weight_filler {
+      type: "xavier"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "loss"
+  type: "SoftmaxWithLoss"
+  bottom: "predict"
+  bottom: "label"
+  top: "loss"
+}
+layer {
+  name: "acc"
+  type: "Accuracy"
+  bottom: "predict"
+  bottom: "label"
+  top: "acc"
+}
+
+
