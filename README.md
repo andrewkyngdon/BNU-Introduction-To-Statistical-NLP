@@ -43,7 +43,7 @@ To train either the CBoW or Skip-Gram Word2Vec models, first open `Wrd2VecCaffe.
 ```
 caffe train -solver w2v_solver.prototxt
 ```
-The Continuous Skip-Gram with Negative Sampling model uses a somewhat different architecture, a Netscope visualisation of which is [here](https://ethereon.github.io/netscope/#/gist/18cf971dc13cc75ed47cb5114bd62130). To train this model, edit the `net:` field in `w2v_solver.prototxt` to state `SkpGrmNeg.prototxt`.
+The Continuous Skip-Gram with Negative Sampling model uses a somewhat different architecture, a Netscope visualisation of which is [here](https://ethereon.github.io/netscope/#/gist/18cf971dc13cc75ed47cb5114bd62130). To train this model, edit the `net:` field in `w2v_solver.prototxt` to state `SkpGrmNeg.prototxt`. The HDF5 database can be downloaded from [here](https://drive.google.com/open?id=1Yhzgf3QEB0qqGdS5fd1QM3roN2gYdbDs).
 
 Pre-trained Automated Essay Scoring (AES) language models, based on the simple Bengio, et al, (2003) architecture, are provided. Use the notebook `aes.ipynb` to explore these; and to visualise the hidden layer activations using t-SNE.
 
